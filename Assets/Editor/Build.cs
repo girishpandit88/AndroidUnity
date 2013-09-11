@@ -12,6 +12,9 @@ public static class AutoBuilder {
 		string[] s = Application.dataPath.Split('/');
 		return s[s.Length - 2];
 	}
+	
+	static string APPNAME = "AndroidUnity";
+	static string TARGET = "target";
 
 	static string[] GetScenePaths()
 	{
@@ -42,8 +45,9 @@ public static class AutoBuilder {
 	[MenuItem("File/AutoBuilder/Android")]
 	static void PerformAndroidBuild ()
 	{
-		EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTarget.Android);
-		string error = BuildPipeline.BuildPlayer(GetScenePaths(), "android", BuildTarget.Android, BuildOptions.None);
+		string target_dir = APPNAME + ".apk";
+		//EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTarget.Android);
+		string error = BuildPipeline.BuildPlayer(GetScenePaths(), target_dir, BuildTarget.Android, BuildOptions.None);
 		if(error!=null && error.Length>0)
 			throw new Exception("Build Failed: "+error);
 	}
